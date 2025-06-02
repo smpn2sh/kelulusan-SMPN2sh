@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pengumuman Kelulusan SMPN 2 Singingi Hilir</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaf4ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #005baa;
+      color: white;
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      margin-top: 40px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 90%;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #005baa;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #004080;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .note {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pengumuman Kelulusan</h1>
+    <h2>SMP Negeri 2 Singingi Hilir</h2>
+  </header>
+
+  <div class="container">
+    <p>Silakan masukkan NISN Anda:</p>
+    <input type="text" id="nisnInput" placeholder="Masukkan NISN di sini" />
+    <button onclick="cekKelulusan()">Cek Kelulusan</button>
+    <div class="result" id="hasilKelulusan"></div>
+    <div class="note">
+      Catatan: Jika Anda mengalami kendala saat mengakses informasi kelulusan, silakan hubungi pihak sekolah.
+    </div>
+  </div>
+
+  <script>
+    const dataKelulusan = {
+  "98484316": {
+    "nama": "Abner Jonatan",
+    "status": "LULUS"
+  },
+  "97500878": {
+    "nama": "Adi Rafino",
+    "status": "LULUS"
+  },
+  "92687257": {
+    "nama": "Adlin Halim",
+    "status": "LULUS"
+  },
+  "101012879": {
+    "nama": "Afifah Sahira",
+    "status": "LULUS"
+  },
+  "96917678": {
+    "nama": "Agus Rohmat Sabrani",
+    "status": "LULUS"
+  },
+  "87219829": {
+    "nama": "Ahmad Sarif",
+    "status": "LULUS"
+  },
+  "95643140": {
+    "nama": "Alfa Nur Ardiansah",
+    "status": "LULUS"
+  },
+  "91277141": {
+    "nama": "Alfarizky Diminov",
+    "status": "LULUS"
+  },
+  "105663657": {
+    "nama": "Amanda Kiki Amelia",
+    "status": "LULUS"
+  },
+  "93141310": {
+    "nama": "Andrea Novandre",
+    "status": "LULUS"
+  },
+  "102292781": {
+    "nama": "Anggara Wijaya",
+    "status": "LULUS"
+  },
+  "91958486": {
+    "nama": "Anisa Ma'Rufah",
+    "status": "LULUS"
+  },
+  "84849012": {
+    "nama": "Ardan D. Lesmana Saragih",
+    "status": "LULUS"
+  },
+  "108245304": {
+    "nama": "Arif Al-Rois",
+    "status": "LULUS"
+  },
+  "108362648": {
+    "nama": "Arin Nuraini",
+    "status": "LULUS"
+  },
+  "91685693": {
+    "nama": "Asep Dikri",
+    "status": "LULUS"
+  },
+  "94194900": {
+    "nama": "Assyfa Nurul Annisa",
+    "status": "LULUS"
+  },
+  "103575928": {
+    "nama": "Aviza Nabila Azaria",
+    "status": "LULUS"
+  },
+  "91182302": {
+    "nama": "Awaliya Azzahra",
+    "status": "LULUS"
+  },
+  "97683621": {
+    "nama": "Bagus Ridho Khanafi",
+    "status": "LULUS"
+  },
+  "107640468": {
+    "nama": "Bunga Susana",
+    "status": "LULUS"
+  },
+  "96734300": {
+    "nama": "Davin Lemuel",
+    "status": "LULUS"
+  },
+  "91650437": {
+    "nama": "Deskan Afriansah",
+    "status": "LULUS"
+  },
+  "104485788": {
+    "nama": "Destia Tiara Putri",
+    "status": "LULUS"
+  },
+  "93848061": {
+    "nama": "Devita Liana",
+    "status": "LULUS"
+  },
+  "101095524": {
+    "nama": "Dinda Tri Wahyuni",
+    "status": "LULUS"
+  },
+  "93541104": {
+    "nama": "Eldho Wahyu Oktavinanda",
+    "status": "LULUS"
+  },
+  "103091204": {
+    "nama": "Erzy Afriliah",
+    "status": "LULUS"
+  },
+  "92739378": {
+    "nama": "Eti Setia Rini",
+    "status": "LULUS"
+  },
+  "96782712": {
+    "nama": "Fahri Zikri Ramadhan",
+    "status": "LULUS"
+  },
+  "84561778": {
+    "nama": "Fajar Muajirin",
+    "status": "LULUS"
+  },
+  "105563963": {
+    "nama": "Fania Nur Aisyah",
+    "status": "LULUS"
+  },
+  "95179226": {
+    "nama": "Ferdhi Seti Aji",
+    "status": "LULUS"
+  },
+  "98110109": {
+    "nama": "Ferdy Aman",
+    "status": "LULUS"
+  },
+  "97756566": {
+    "nama": "Fiolin Agustin",
+    "status": "LULUS"
+  },
+  "98806419": {
+    "nama": "Frinscha Ditya Alentha",
+    "status": "LULUS"
+  },
+  "74482078": {
+    "nama": "Ibnu Ahmad Fauzi",
+    "status": "LULUS"
+  },
+  "102819045": {
+    "nama": "Ibrahim Alkhatiri",
+    "status": "LULUS"
+  },
+  "92195579": {
+    "nama": "Ilham Nur Riskiawan",
+    "status": "LULUS"
+  },
+  "107360744": {
+    "nama": "Intan Aprillian",
+    "status": "LULUS"
+  },
+  "98702509": {
+    "nama": "Ira Kurnia Lestari",
+    "status": "LULUS"
+  },
+  "102103419": {
+    "nama": "Khansa",
+    "status": "LULUS"
+  },
+  "95517169": {
+    "nama": "Kiki Cahyani",
+    "status": "LULUS"
+  },
+  "106397615": {
+    "nama": "Lia Julianti",
+    "status": "LULUS"
+  },
+  "93154741": {
+    "nama": "M. Prapto Aripin",
+    "status": "LULUS"
+  },
+  "98793549": {
+    "nama": "M. Rizki Juanda",
+    "status": "LULUS"
+  },
+  "97279685": {
+    "nama": "Muhamad Bima Pratama",
+    "status": "LULUS"
+  },
+  "93925653": {
+    "nama": "Muhammad Abdillah Al-Kafi",
+    "status": "LULUS"
+  },
+  "106451526": {
+    "nama": "Muhammad Iqbal Nasuha",
+    "status": "LULUS"
+  },
+  "96076354": {
+    "nama": "Muhammad Yusuf",
+    "status": "LULUS"
+  },
+  "102745342": {
+    "nama": "Natasa Dea Oktarina",
+    "status": "LULUS"
+  },
+  "94620892": {
+    "nama": "Nur Fahmy",
+    "status": "LULUS"
+  },
+  "89249668": {
+    "nama": "Nurul Afifah",
+    "status": "LULUS"
+  },
+  "104803275": {
+    "nama": "Nurul Fadila Saputri",
+    "status": "LULUS"
+  },
+  "89456968": {
+    "nama": "Pendi Setiawan Halawa",
+    "status": "LULUS"
+  },
+  "107284950": {
+    "nama": "Qorinatun Nur Khafidzah",
+    "status": "LULUS"
+  },
+  "95990234": {
+    "nama": "Radhit Pradana",
+    "status": "LULUS"
+  },
+  "95646852": {
+    "nama": "Rahma Sofiani",
+    "status": "LULUS"
+  },
+  "105846427": {
+    "nama": "Raihan Dian Pratama",
+    "status": "LULUS"
+  },
+  "94439216": {
+    "nama": "Refi Rizky Ardiansyah",
+    "status": "LULUS"
+  },
+  "98901799": {
+    "nama": "Ria Restu Amelia",
+    "status": "LULUS"
+  },
+  "93986157": {
+    "nama": "Ridho Nurhidayat",
+    "status": "LULUS"
+  },
+  "105887147": {
+    "nama": "Rindu Vanesa Eka Wagita",
+    "status": "LULUS"
+  },
+  "79952188": {
+    "nama": "Rismandani",
+    "status": "LULUS"
+  },
+  "92943557": {
+    "nama": "Rosa Linda Aulia",
+    "status": "LULUS"
+  },
+  "91759348": {
+    "nama": "Salfindo Kurnia Fernandes",
+    "status": "LULUS"
+  },
+  "95901469": {
+    "nama": "Sely Agustiana",
+    "status": "LULUS"
+  },
+  "105830882": {
+    "nama": "Sherina Safara",
+    "status": "LULUS"
+  },
+  "102259519": {
+    "nama": "Silvany Febryanty",
+    "status": "LULUS"
+  },
+  "87505629": {
+    "nama": "Sionis Lase",
+    "status": "LULUS"
+  },
+  "98337801": {
+    "nama": "Syahroh Tussitta",
+    "status": "LULUS"
+  },
+  "109790278": {
+    "nama": "Syefata Sari",
+    "status": "LULUS"
+  },
+  "88292988": {
+    "nama": "Syifa Fauziah",
+    "status": "LULUS"
+  },
+  "106927811": {
+    "nama": "Tabah Setiawan",
+    "status": "LULUS"
+  },
+  "103625408": {
+    "nama": "Trisya Mauludia Rahma",
+    "status": "LULUS"
+  },
+  "96965716": {
+    "nama": "Veno Verianto",
+    "status": "LULUS"
+  },
+  "103433388": {
+    "nama": "Viola Putri",
+    "status": "LULUS"
+  },
+  "103936056": {
+    "nama": "Wanda Verlita",
+    "status": "LULUS"
+  },
+  "96326725": {
+    "nama": "Wilda Salmi Habibah",
+    "status": "LULUS"
+  },
+  "96494097": {
+    "nama": "Yoppy Priandika",
+    "status": "LULUS"
+  },
+  "107719294": {
+    "nama": "Zahrotun Musyarofah",
+    "status": "LULUS"
+  },
+  "101627548": {
+    "nama": "Zio Davian Sitopu",
+    "status": "LULUS"
+  }
+};
+
+    function cekKelulusan() {
+      const nisn = document.getElementById('nisnInput').value.trim();
+      const hasilDiv = document.getElementById('hasilKelulusan');
+
+      if (!nisn) {
+        hasilDiv.innerHTML = "Silakan masukkan NISN terlebih dahulu.";
+        hasilDiv.style.color = "red";
+        return;
+      }
+
+      const data = dataKelulusan[nisn];
+      if (data) {
+        hasilDiv.innerHTML = `
+          <p>Nama: <strong>${data.nama}</strong></p>
+          <p>NISN: <strong>${nisn}</strong></p>
+          <p>Status Kelulusan: <span style="color: green;">${data.status}</span></p>
+        `;
+        hasilDiv.style.color = "black";
+      } else {
+        hasilDiv.innerHTML = `NISN ${nisn} <span style="color: red;">TIDAK LULUS atau tidak ditemukan</span>`;
+        hasilDiv.style.color = "black";
+      }
+    }
+  </script>
+
+</body>
+</html>
