@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pengumuman Kelulusan SMPN 2 Singingi Hilir</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaf4ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #005baa;
+      color: white;
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 40px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 90%;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #005baa;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #004080;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .note {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pengumuman Kelulusan</h1>
+    <h2>SMP Negeri 2 Singingi Hilir</h2>
+  </header>
+
+  <div class="container">
+    <p>Silakan masukkan NISN Anda:</p>
+    <input type="text" id="nisnInput" placeholder="Masukkan NISN di sini" />
+    <button onclick="cekKelulusan()">Cek Kelulusan</button>
+    <div class="result" id="hasilKelulusan"></div>
+    <div class="note">
+      Catatan: Jika Anda mengalami kendala saat mengakses informasi kelulusan, silakan hubungi pihak sekolah.
+    </div>
+  </div>
+
+  <script>
+    const dataKelulusan = `
+0098484316;LULUS
+0097500878;LULUS
+0092687257;LULUS
+0101012879;LULUS
+0096917678;LULUS
+0087219829;LULUS
+0095643140;LULUS
+0091277141;LULUS
+0105663657;LULUS
+0093141310;LULUS
+0102292781;LULUS
+0091958486;LULUS
+0084849012;LULUS
+0108245304;LULUS
+0108362648;LULUS
+0091685693;LULUS
+0094194900;LULUS
+0103575928;LULUS
+0091182302;LULUS
+0097683621;LULUS
+0107640468;LULUS
+0096734300;LULUS
+0091650437;LULUS
+0104485788;LULUS
+0093848061;LULUS
+0101095524;LULUS
+0093541104;LULUS
+0103091204;LULUS
+0092739378;LULUS
+0096782712;LULUS
+0084561778;LULUS
+0105563963;LULUS
+0095179226;LULUS
+0098110109;LULUS
+0097756566;LULUS
+0098806419;LULUS
+0074482078;LULUS
+0102819045;LULUS
+0092195579;LULUS
+0107360744;LULUS
+0098702509;LULUS
+0102103419;LULUS
+0095517169;LULUS
+0106397615;LULUS
+0093154741;LULUS
+0098793549;LULUS
+0097279685;LULUS
+0093925653;LULUS
+0106451526;LULUS
+0096076354;LULUS
+0102745342;LULUS
+0094620892;LULUS
+0089249668;LULUS
+0104803275;LULUS
+0089456968;LULUS
+0107284950;LULUS
+0095990234;LULUS
+0095646852;LULUS
+0105846427;LULUS
+0094439216;LULUS
+0098901799;LULUS
+0093986157;LULUS
+0105887147;LULUS
+0079952188;LULUS
+0092943557;LULUS
+0091759348;LULUS
+0095901469;LULUS
+0105830882;LULUS
+0102259519;LULUS
+0087505629;LULUS
+0098337801;LULUS
+0109790278;LULUS
+0088292988;LULUS
+0106927811;LULUS
+0103625408;LULUS
+0096965716;LULUS
+0103433388;LULUS
+0103936056;LULUS
+0096326725;LULUS
+0096494097;LULUS
+0107719294;LULUS
+0101627548;LULUS
+    `.trim().split('\n').reduce((acc, line) => {
+      const [nisn, status] = line.split(';');
+      acc[nisn.trim()] = status.trim();
+      return acc;
+    }, {});
+
+    function cekKelulusan() {
+      const nisn = document.getElementById('nisnInput').value.trim();
+      const hasilDiv = document.getElementById('hasilKelulusan');
+
+      if (!nisn) {
+        hasilDiv.innerHTML = "Silakan masukkan NISN terlebih dahulu.";
+        hasilDiv.style.color = "red";
+        return;
+      }
+
+      if (dataKelulusan[nisn]) {
+        hasilDiv.innerHTML = `NISN ${nisn} dinyatakan: <span style="color: green;">${dataKelulusan[nisn]}</span>`;
+      } else {
+        hasilDiv.innerHTML = `NISN ${nisn} <span style="color: red;">TIDAK LULUS atau tidak ditemukan</span>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
